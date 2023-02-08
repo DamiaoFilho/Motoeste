@@ -7,7 +7,7 @@ from django.http import JsonResponse
 
 def RedirectParams(**kwargs):
 	'''
-	Used to append url parameters when redirecting users
+	usado para anexar parâmetros de url ao redirecionar usuários
 	'''
 	url = kwargs.get("url")
 	params = kwargs.get("params")
@@ -18,28 +18,27 @@ def RedirectParams(**kwargs):
 	return response
 
 def Directions(*args, **kwargs):
+	'''
+	Lida com as direções do Google	
+	'''
 
-    '''lida com direções do google'''
+	lat_a = kwargs.get("lat_a")
+	long_a = kwargs.get("long_a")
+	lat_b = kwargs.get("lat_b")
+	long_b = kwargs.get("long_b")
+	origin = f'{lat_a},{long_a}'
+	destination = f'{lat_b},{long_b}'
+	
 
-    lat_a = kwargs.get("lat_a")
-    long_a = kwargs.get("long_a")
-    
-    lat_b = kwargs.get("lat_b")
-    long_b = kwargs.get("long_b")
-
-    origin = f'{lat_a},{long_a}'
-    destination = f'{lat_b},{long_b}'
-
-    result = requests.get(
-        'https://maps.googleapis.com/maps/api/directions/json?',
+	result = requests.get(
+		'https://maps.googleapis.com/maps/api/directions/json?',
 		 params={
 		 'origin': origin,
 		 'destination': destination,
 		 "key": settings.GOOGLE_API_KEY
-		 }
-    )
+		 })
 
-    directions = result.json()
+	directions = result.json()
 
 	if directions["status"] == "OK":
 
