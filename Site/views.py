@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import CreateView, FormView
 from django.contrib.auth import authenticate
 from .forms import *
@@ -10,12 +10,13 @@ from django.contrib.auth.decorators import login_required
 
 
 @login_required
-def index_client(request):
-    return render(request, 'base_client.html')
+def index(request):
+    user = User.objects.get(username=request.user)
 
-def index_taxi(request):
-    return render(request, 'base_taxi.html')
-
+    if user is MotoTaxi:
+         return render(request, 'base_taxi.html')
+    else:
+         return render(request, 'base_client.html')
 
 from django.http import JsonResponse
 
@@ -41,8 +42,7 @@ class SignUpView_Client(FormView):
         message = "Thank you for signing up"
 
         data = {'result': result, 'message': message}
-        return JsonResponse(data)
-    
+        return redirect('/login/')
 
 
 class SignUpView_Taxi(FormView):
@@ -51,14 +51,15 @@ class SignUpView_Taxi(FormView):
     '''
 
     template_name = "moto_taxi_forms.html"
-    form_class = UserForm
+    form_class = Moto_taxi_forms
     success_url = "/"
 
 
     #over write the mixin logic to get, check and save reCAPTURE score
     def form_valid(self, form):
-
+        moto = self.request.GET.get('obj', None)
         obj = form.save()
+        obj.motorcycle = moto
         obj.save()
         up = obj.MotoTaxi
         up.save()
@@ -69,9 +70,7 @@ class SignUpView_Taxi(FormView):
         message = "Thank you for signing up"
 
         data = {'result': result, 'message': message}
-        return JsonResponse(data)
-
-
+        return redirect('/login/')
 
 class SignInView(FormView):
 	'''
@@ -95,10 +94,25 @@ class SignInView(FormView):
 		else:
 			message = 'error'
 		data = {'result': result, 'message': message}
-		return JsonResponse(data)
+		return redirect('/index/')
 
-def taxiForms(request):
-    return render(request, 'moto_taxi_forms.html')
+class motoForms(FormView):
+    '''
+    Generic FormView with our mixin for user sign-up with reCAPTURE security
+    '''
+
+    template_name = "moto_forms.html"
+    form_class = motoForms
+    success_url = "/"
+
+
+    #over write the mixin logic to get, check and save reCAPTURE score
+    def form_valid(self, form):
+        obj = form.save()
+        taxiForm = Moto_taxi_forms()
+        return render(self.request, 'moto_taxi_forms.html', context={'obj':obj,'form':taxiForm})
+
+
 
 class clientForms(CreateView):
     template_name = 'cliente_forms.html'

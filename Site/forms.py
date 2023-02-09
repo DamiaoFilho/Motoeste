@@ -19,6 +19,18 @@ class UserForm(UserCreationForm):
 	class Meta:
 		model = User
 		fields = ('username', 'first_name', 'last_name', 'password1', 'password2', )
+                
+
+class motoForms(forms.ModelForm):
+    model = forms.CharField(max_length=30, required=True, widget=forms.TextInput(attrs={'placeholder': '*Modelo'}))
+    brand = forms.CharField(max_length=30, required=True, widget=forms.TextInput(attrs={'placeholder': '*Marca'}))
+    color = forms.CharField(max_length=30, required=True, widget=forms.TextInput(attrs={'placeholder': '*Cor'}))
+    year = forms.IntegerField(required=True, widget=forms.TextInput(attrs={'placeholder': '*Ano'}))
+    picture = forms.ImageField()
+
+    class Meta:
+        model = Motorcycle
+        fields = ('model', 'brand', 'color', 'year', 'picture')
 
 class Cliente_forms(UserCreationForm):
 
@@ -26,20 +38,18 @@ class Cliente_forms(UserCreationForm):
   age = forms.IntegerField(label="age", max_value=100, required=True, widget=forms.TextInput(attrs={'placeholder' : 'Idade'}))
   cpf = forms.CharField(label="CPF", max_length=100, required=True, widget=forms.TextInput(attrs={'placeholder' : 'CPF'}))
   email = forms.EmailField(label="E-mail", max_length=100, required=True, widget=forms.TextInput(attrs={'placeholder' : 'Email'}))  
-  password = forms.CharField(label="password", max_length=100, widget= forms.PasswordInput(attrs={'placeholder': 'Senha','class':'password'}))
   picture = forms.ImageField()
 
   class Meta:
     model = Client
-    fields = ['username','age','cpf','email','password', 'picture']
+    fields = ['username','age','cpf','email', 'picture']
 
-class Moto_taxi_forms(forms.ModelForm):
+class Moto_taxi_forms(UserCreationForm):
 
-  name = forms.CharField(label="name", max_length=100, required=True, widget=forms.TextInput(attrs={'placeholder' : 'Nome completo'}))
+  username = forms.CharField(label="name", max_length=100, required=True, widget=forms.TextInput(attrs={'placeholder' : 'Nome completo'}))
   age = forms.IntegerField(label="age", max_value=100, required=True, widget=forms.TextInput(attrs={'placeholder' : 'Idade'}))
   cpf = forms.CharField(label="CPF", max_length=100, required=True, widget=forms.TextInput(attrs={'placeholder' : 'CPF'}))
   email = forms.EmailField(label="E-mail", max_length=100, required=True, widget=forms.TextInput(attrs={'placeholder' : 'Email'}))  
-  password = forms.CharField(label="password", max_length=100, widget= forms.PasswordInput(attrs={'placeholder': 'Senha','class':'password'}))
   picture = forms.ImageField()
 
   cnh = forms.CharField(label="cnh", max_length=50, required=True)
@@ -47,7 +57,7 @@ class Moto_taxi_forms(forms.ModelForm):
 
   class Meta:
     model = MotoTaxi
-    fields = ['name','age','cpf','email','password', 'picture','cnh']
+    fields = ['username','age','cpf','email', 'picture','cnh']
 
 class AuthForm(AuthenticationForm):
   password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Senha','class':'password'}))
