@@ -1,30 +1,30 @@
 from django.db import models
-
-
+#from django.contrib.auth.models import *
+from django.contrib.auth import get_user_model
+User = get_user_model()
 # Create your models here.
 class Balance(models.Model):
     balance = models.DecimalField(verbose_name='Saldo', max_digits=100, decimal_places=2)
 
 
 
+class Common(User):
+    timeCreate = models.DateTimeField(auto_now_add=True)
+    
+    cpf = models.IntegerField(blank=True, default=0)
+    picture = models.ImageField(upload_to='uploads', verbose_name='Imagem', )
+    age = models.IntegerField(verbose_name='Idade', default=0)
 
-class Common(models.Model):
-    name = models.CharField(max_length=100, verbose_name='Nome')
-    cpf = models.IntegerField()
-    email = models.CharField(max_length=100)
-    login = models.CharField(max_length=100)
-    password = models.CharField(max_length=100, verbose_name='Senha')
-    picture = models.ImageField(upload_to='uploads', verbose_name='Imagem')
-    age = models.IntegerField(verbose_name='Idade')
     rate = models.IntegerField(verbose_name='Avaliação', blank=True, null=True)
     balance = models.OneToOneField(Balance, verbose_name='Saldo', on_delete=models.CASCADE, blank=True, null=True)
     history = models.ManyToManyField("Ride", blank=True, verbose_name="Historico")
     
-    class Meta():
-        abstract = True
-
     def __str__(self):
-        return self.name
+        return f'{self.username}'
+    
+    class Meta:
+        abstract = True
+    
 
 class Motorcycle(models.Model):
     model = models.CharField(max_length=100, verbose_name='Modelo')

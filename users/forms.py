@@ -36,7 +36,14 @@ class Moto_taxi_forms(forms.ModelForm):
     fields = ['name','age','cpf','email','password', 'picture','cnh']
 
 class AuthForm(AuthenticationForm):
+    '''
+    Form that uses built-in AuthenticationForm to handel user auth
+    '''
+    username = forms.CharField(max_length=254, required=True,
+        widget=forms.TextInput(attrs={'placeholder': 'Usuario..'}))
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'placeholder': 'Password..','class':'password'}))
 
-  login = forms.EmailField(max_length=100, required=True, widget=forms.TextInput(attrs={'placeholder':'Email'}))
-
-  password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Senha','class':'password'}))
+    class Meta:
+        model = User
+        fields = ('username','password', )

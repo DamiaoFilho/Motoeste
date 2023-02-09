@@ -13,16 +13,14 @@
     <div class ="row align-items-center">
       <div class="col-mid-10 mx-auto col-lg-5">
 
-        <form class="p-4 p-md-4 border rounded-3 bg-light">
-
+        <form class="p-4 p-md-4 border rounded-3 bg-light" action="{% url 'login' %}" method="POST" class="form" autocomplete="off" enctype="multipart/form-data">
+          {% csrf_token %}
           <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="inputEmail" placeholder="E-mail">
-            <label for="inputEmail">Email</label>
+            <input type="text" class="form-control" id="inputEmail" placeholder="Usuário" name="username">
           </div>
 
           <div class="form-floating mb-3">
-            <input type="password" class="form-control" id="inputPassword" placeholder="">password
-            <label for="inputPassword">Password</label>
+            <input type="password" class="form-control" id="inputPassword" placeholder="" name="password">password
           </div>
 
           <div class="checkbox mb-3">
