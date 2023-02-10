@@ -35,7 +35,7 @@ def activeRide(request):
     print(user)
     try:
         ride = Ride.objects.get(motoTax=user.id, status=True)
-        return render(request, 'active_rides.html', context={'ride':ride})
+        return render(request, 'active_rides.html', context={'ride':ride, 'commom':user})
     except:
         return redirect('/index/')       
     
@@ -169,16 +169,28 @@ class SignInView(FormView):
 		data = {'result': result, 'message': message}
 		return redirect('/index/')
 
+
+@login_required
 def endRide(request):
     user = getUser(request)
-    ride = Ride.objects.get(motoTax=user.id, status=True)
-    ride.status = False
-    user.status = False
-    ride.cliente.status = False
-
-    ride.save()
-    user.save()
-    ride.cliente.save()
+    if isinstance(user, MotoTaxi):
+        ride = Ride.objects.get(motoTax=user.id, status=True)
+        ride.status = False
+        user.status = False
+        ride.cliente.status = False
+        ride.save()
+        user.save()
+        ride.cliente.save()
+    else:
+        ride = Ride.objects.get(cliente=user.id, status=True)
+        ride.status = False
+        user.status = False
+        ride.motoTax.status = False
+        user.deposit(ride.value)
+        ride.motoTax.balance -= ride.value
+        ride.save()
+        user.save()
+        ride.motoTax.save()
     return redirect('/index/')
 
 @login_required

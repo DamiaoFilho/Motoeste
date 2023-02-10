@@ -6,7 +6,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8">
-    <title> Drop Down Sidebar Menu | CodingLab </title>
+    <title>Motoeste</title>
     <!-- Boxiocns CDN Link -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,18 +20,10 @@
   <div class="sidebar close">
     <div class="logo-details">
       <i class='bx bxl-c-plus-plus'></i>
-      <span class="logo_name">CodingLab</span>
+      <span class="logo_name">Motoeste</span>
     </div>
     <ul class="nav-links">
-      <li>
-        <a href="#">
-          <i class='bx bx-pie-chart-alt-2' ></i>
-          <span class="link_name">Avaliações</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Avaliações</a></li>
-        </ul>
-      </li>
+      
       <li>
         <a href="{% url 'createRides' %}">
           <i class='bx bx-compass' ></i>
@@ -51,15 +43,6 @@
         </ul>
       </li>
       <li>
-        <a href="#">
-          <i class='bx bx-cog' ></i>
-          <span class="link_name">Configurações</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Configurações</a></li>
-        </ul>
-      </li>
-      <li>
     <div class="profile-details">
       <div class="profile-content">
         <img src="{{ commom.picture.url }}" alt="profileImg">
@@ -76,7 +59,6 @@
   <section class="home-section">
     <div class="home-content">
       <i class='bx bx-menu' ></i>
-      <span class="text">Drop Down Sidebar</span>
     </div>
 
     {% block main %}
