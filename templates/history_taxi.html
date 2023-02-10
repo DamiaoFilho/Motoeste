@@ -1,0 +1,44 @@
+{% extends 'base_taxi.html' %}
+{% load bootstrap4 %}
+
+{% block head %}
+
+{% bootstrap_css %}
+
+{% endblock head %}
+
+
+{% block main %}
+
+
+<table class="table table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Cliente</th>
+        <th scope="col">Valor</th>
+        <th scope="col">Distancia</th>
+        <th scope="col">Início</th>
+        <th scope="col">Fim</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for ride in rides %}
+
+      <tr>
+        <td>{{ ride.cliente.username }}</td>
+        <td>{{ ride.value }}</td>
+        <td>{{ ride.distance }}</td>
+        <td>{{ ride.start }}</td>
+        <td>{{ ride.end }}</td>
+      </tr>
+
+    {% endfor %}
+    </tbody>
+  </table>
+
+
+
+{%  bootstrap_javascript jquery='full' %}
+
+
+{% endblock main %}

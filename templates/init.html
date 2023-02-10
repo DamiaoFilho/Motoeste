@@ -1,0 +1,53 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<!-- Designined by CodingLab | www.youtube.com/codinglabyt -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title> Drop Down Sidebar Menu | CodingLab </title>
+    <!-- Boxiocns CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    {% block head %}
+    {% endblock head %}
+   </head>
+
+<body>
+  
+  <div class="sidebar close">
+    <div class="logo-details">
+      <i class='bx bxl-c-plus-plus'></i>
+      <span class="logo_name">Motoeste</span>
+    </div>
+    <ul class="nav-links">
+        <li>
+            <div class="iocn-link">
+              <a href="#">
+                <i class='bx bx-collection' ></i>
+                <span class="link_name">Entrar</span>
+              </a>
+              <i class='bx bxs-chevron-down arrow' ></i>
+            </div>
+            <ul class="sub-menu">
+              <li><a class="link_name" href="#">Entrar</a></li>
+              <li><a href="{% url 'login' %}">Fazer Login</a></li>
+              <li><a href="{% url 'clientForms' %}">Entrar como cliente</a></li>
+              <li><a href="{% url 'taxiForms' %}">Entrar como piloto</a></li>
+            </ul>
+          </li>
+</ul>
+  </div>
+  <section class="home-section">
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+    </div>
+  </section>
+
+
+  <script src="{% static 'css/script.js' %}"></script>
+
+</body>
+</html>

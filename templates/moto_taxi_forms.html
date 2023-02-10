@@ -17,6 +17,8 @@
     <form class="p-4 p-md-4 border rounded-3 bg-light" action="{% url 'taxiForms' %}" method="POST" class="form" autocomplete="off" enctype="multipart/form-data">
       {% csrf_token %}
       {% bootstrap_form form %}
+      <p style="text-align: center;">Dados de seu veículo</p>
+      {% bootstrap_form motoForm %}
       <hr>
       {% buttons %}
         <button type="submit" class="btn btn-primary">Enviar</button>

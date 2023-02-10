@@ -1,0 +1,38 @@
+{% extends 'base_taxi.html' %}
+{% load bootstrap4 %}
+
+<style>
+  p{
+    text-align: center;
+  }
+  a{
+    text-align: center;
+    justify-content: center;
+    place-items: center;
+  }
+</style>
+{% block head %}
+
+{% bootstrap_css %}
+
+{% endblock head %}
+
+
+{% block main %}
+
+
+  <div class="container">
+    <h1 style="text-align: center;">Corrida ativa</h1>
+    {% bootstrap_messages %}
+    <p>Cliente: {{ ride.cliente.username }}</p>
+    <p>Valor: {{ ride.value }}</p>
+    <p>Distância{{ ride.distance }}</p>
+    <p>Início: {{ ride.start }}</p>
+    <p>Fim: {{ ride.end }}</p>
+
+    <a class="btn btn-primary" href="{% url 'endRide' %}" role="button">Finalizar</a>
+  </div>
+  {%  bootstrap_javascript jquery='full' %}
+
+
+{% endblock main %}

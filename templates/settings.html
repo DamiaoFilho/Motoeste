@@ -1,0 +1,32 @@
+{% extends 'base_client.html' %}
+{% load bootstrap4 %}
+
+
+{% block head %}
+
+{% bootstrap_css %}
+
+{% endblock head %}
+
+
+{% block main %}
+
+
+<div class="container">
+    <h1 style="text-align: center;">Atualizar dados</h1>
+    {% bootstrap_messages %}
+
+    <form class="p-4 p-md-4 border rounded-3 bg-light" action="{% url 'clientForms' %}" method="POST" class="form" autocomplete="off" enctype="multipart/form-data" >
+      {% csrf_token %}
+      {% bootstrap_form form %}
+      <hr>
+      {% buttons %}
+        <button type="submit" class="btn btn-primary">Enviar</button>
+      {% endbuttons %} 
+    </form>
+
+  </div>
+  {%  bootstrap_javascript jquery='full' %}
+
+
+{% endblock main %}
